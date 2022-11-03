@@ -8,7 +8,8 @@ entity detec_seq is
         clk : in std_logic;
         reset : in std_logic;
         entrada : in std_logic;
-        saida : out std_logic;
+        flag : out std_logic;
+        saida : out std_logic_vector(3 downto 0)
     );
 end entity detec_seq;
 
@@ -67,12 +68,34 @@ begin
                     when s7 => 
                         if entrada = '1' then 
                             estado <= s0;
-                            saida  <= 1;
+                            flag  <= '1';
                         else 
                             estado <= s1;
                         end if;
                 end case;
             end if;
-    
-    
+        end process;
+
+    process(estado)
+        begin
+            case estado is
+                when s0 =>
+                    saida <= "0000";
+                when s1 =>
+                    saida <= "0001";
+                when s2 =>
+                    saida <= "0010";
+                when s3 =>
+                    saida <= "0011";
+                when s4 =>
+                    saida <= "0100";
+                when s5 => 
+                    saida <= "0101";
+                when s6 =>
+                    saida <= "0110";
+                when s7 =>
+                    saida <= "0111";
+            end case;
+        end process;
+
 end architecture rtl;
