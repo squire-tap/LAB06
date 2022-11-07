@@ -16,7 +16,9 @@ end entity detec_seq;
 architecture rtl of detec_seq is
     type STATE_TYPE is (s0,s1,s2,s3,s4,s5,s6,s7);
     signal estado : STATE_TYPE;
+	 signal v_flag : std_logic := '0';
 begin
+	 flag <= v_flag;
     process(clk,reset)
         begin
             if reset = '1' then
@@ -68,7 +70,7 @@ begin
                     when s7 => 
                         if entrada = '1' then 
                             estado <= s0;
-                            flag  <= '1';
+                            v_flag  <= '1';
                         else 
                             estado <= s1;
                         end if;
